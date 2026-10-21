@@ -1,0 +1,57 @@
+# --- Sensitive / raw deliverable files ---
+# Never commit raw course materials, scan exports, or anything with real host/credential data
+*.pdf
+*.pptx
+*.docx
+
+# Nessus raw scan exports (contain host/IP/vuln detail data)
+*.nessus
+*.nessus.xml
+*.xml
+!docs/**/*.xml      # (unless explicitly needed/sanitized, keep excluded by default)
+
+# Credentials / secrets / environment files
+*.env
+.env.*
+*credentials*
+*secrets*
+*.key
+*.pem
+*.pfx
+*apiNessus*
+*token*
+
+# Talend context / project exports that may embed credentials
+*.item
+*.properties
+context_*.xml
+
+# Database dumps / exports
+*.bak
+*.sql.gz
+*.csv
+!reports/**/*.csv.sample
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Logs / temp ---
+*.log
+*.tmp
+temp/
+tmp/
+
+# --- Virtual machine artifacts (if VMs are ever stored locally) ---
+*.ova
+*.ovf
+*.vmdk
+*.vdi
+*.vbox
