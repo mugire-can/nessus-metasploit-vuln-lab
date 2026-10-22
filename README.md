@@ -12,6 +12,7 @@ This repository documents the methodology, setup, findings analysis, and remedia
 ## ⚠️ Legal & Ethical Disclaimer
 
 All scanning and exploitation activities documented here were performed **exclusively** against:
+
 - A **deliberately vulnerable, purpose-built virtual machine** (Metasploitable2), designed by Rapid7 for security training.
 - An **isolated lab network**, never exposed to the internet or to systems outside the scope of this exercise.
 
@@ -44,7 +45,7 @@ No real, third-party, or production system was scanned or targeted. Using the to
 
 ## 🏗️ Lab Architecture
 
-```
+```text
             ┌────────────────────┐
             │   Attacker host     │
             │ (Kali / Metasploit) │
@@ -61,7 +62,7 @@ All components run in an isolated host-only / NAT network segment with no route 
 
 ## 📁 Repository Structure
 
-```
+```text
 .
 ├── docs/
 │   ├── 01-nessus-overview.md        # What is a vulnerability scan / Nessus basics

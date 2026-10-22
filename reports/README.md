@@ -16,7 +16,7 @@ This folder is intended for **sanitized, anonymized summaries** of scan results 
 
 ## Example structure
 
-```
+```text
 reports/
 ├── README.md              (this file)
 └── scan-summary-2026-XX-XX.md   (sanitized summary, add as needed)

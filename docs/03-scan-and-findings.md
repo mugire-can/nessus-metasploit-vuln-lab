@@ -82,6 +82,7 @@ Metasploitable2 is *intentionally* loaded with vulnerabilities, so expect a larg
 ## Exporting the Report
 
 Nessus → scan → **Export** → choose format:
+
 - `.nessus` (raw XML — **do not commit to the repo**, see `.gitignore`)
 - PDF / HTML (readable report — **do not commit raw copies**, use sanitized summaries in `reports/`)
 - CSV (useful for further processing, e.g. via the Talend ETL pipeline — see below)
@@ -92,7 +93,7 @@ Nessus → scan → **Export** → choose format:
 
 For larger-scale or recurring scanning, this project also explored an automated pipeline:
 
-```
+```text
 Nessus REST API
    │  POST /session         (authenticate, get token)
    │  POST /scans/{id}/export (request XML export)
@@ -108,6 +109,7 @@ Qlik  (interactive dashboards / KPIs)
 ```
 
 Key XPath queries used to extract structured data from the raw `.nessus` XML:
+
 - Host loop: `/NessusClientData_v2/Report/ReportHost`
 - Finding loop: `/NessusClientData_v2/Report/ReportHost/ReportItem`
 - Fields extracted: `scan`, `host`, `pluginID`, `pluginName`, `pluginFamily`, `protocol`, `port`

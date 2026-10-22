@@ -15,22 +15,28 @@
 ## Job 02 — Metasploitable2 VM Setup
 
 ### Download
+
 Metasploitable2 is freely available from Rapid7:
+
 - [https://docs.rapid7.com/metasploit/metasploitable-2/](https://docs.rapid7.com/metasploit/metasploitable-2/)
 
 Download the `.zip`, extract the `.vmdk` image, and import it into your hypervisor (VMware / VirtualBox).
 
 ### Network Configuration
+
 Set the VM's network adapter to **Host-Only** (or the same NAT network as your Nessus VM).
 
 ### First Boot
+
 At login prompt:
-```
+
+```text
 Login: msfadmin
 Password: msfadmin
 ```
 
 Check the VM's IP address:
+
 ```bash
 ifconfig
 ```
@@ -58,6 +64,7 @@ From [https://www.tenable.com/downloads/nessus](https://www.tenable.com/download
 Select version and platform → **Linux — Debian — amd64** → Download the `.deb` file.
 
 Or via `curl` (check the downloads page for the exact URL):
+
 ```bash
 curl -L -o Nessus-<version>-debian10_amd64.deb \
   "https://www.tenable.com/downloads/api/v1/public/pages/nessus/downloads/<id>/download?i_agree_to_tenable_license_agreement=true"
@@ -79,13 +86,15 @@ sudo systemctl enable nessusd.service
 ### Step 5 — Initial Web UI Setup
 
 Open a browser on the Debian VM (or from the host with port forwarding):
-```
+
+```text
 https://<debian-vm-ip>:8834
 ```
 
 > Accept the self-signed certificate warning — this is expected.
 
 Follow the setup wizard:
+
 1. Choose **Nessus Professional / Trial** (or Essentials)
 2. Enter your **activation code**
 3. Create an admin account (username + password)
