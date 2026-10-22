@@ -1,5 +1,8 @@
 # Nessus & Metasploit Vulnerability Assessment Lab
 
+[![Markdown Lint](https://github.com/mugire-can/nessus-metasploit-vuln-lab/actions/workflows/markdown-lint.yml/badge.svg)](https://github.com/mugire-can/nessus-metasploit-vuln-lab/actions/workflows/markdown-lint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Hands-on cybersecurity training project: scanning for vulnerabilities with **Tenable Nessus** and validating exploitability with **Metasploit** against **Metasploitable2**, inside an isolated, legally-authorized lab environment.
 
 This repository documents the methodology, setup, findings analysis, and remediation process carried out as part of a vulnerability management training module.
