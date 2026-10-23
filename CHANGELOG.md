@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `docs/03` and `docs/05` now include a clearly labeled **reference example** (from the course material) instead of empty placeholders
+- `docs/04` gains guidance on choosing a candidate finding
+
 ### Added
 
 - `.github/` issue templates (documentation improvement, question)

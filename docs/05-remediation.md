@@ -13,13 +13,31 @@ Every vulnerability identified should map to a concrete, actionable fix. Nessus 
 | Misconfigured service (e.g. SMB signing disabled) | Apply secure configuration baseline (GPO / hardening guide) |
 | Unnecessary exposed service | Disable the service or restrict access via firewall rules |
 
-## ✏️ Remediation Table (fill in with your actual findings)
+## Remediation Table
 
-| Severity | Finding | Recommended Fix | Owner / Priority |
-|---|---|---|---|
-| Critical | `<finding>` | `<fix>` | `<immediate>` |
-| High | `<finding>` | `<fix>` | `<short-term>` |
-| Medium | `<finding>` | `<fix>` | `<scheduled>` |
+> **Reference example**, based on the course's example scan of Metasploitable2. The *Source* column states where each fix comes from: the Nessus **Remediations** tab, or general hardening guidance added for context.
+
+| Priority | Severity | Finding | Recommended fix | Source |
+|---|---|---|---|---|
+| 1 | Critical | UnrealIRCd Backdoor Detection | Re-download the software, verify it with the published MD5/SHA1 checksums, and re-install it | Nessus Remediations tab |
+| 2 | Critical | Bind shell backdoor *(name truncated in source)* | Treat the host as compromised: close the listener, investigate, and rebuild from a trusted image | General guidance |
+| 3 | Critical | VNC server *(name truncated in source)* | Enforce strong authentication, restrict access with firewall rules, or tunnel it through SSH | General guidance |
+| 4 | Critical | SSL v2/v3 protocol detection *(name truncated in source)* | Disable obsolete SSL versions and require TLS 1.2 or later | General guidance |
+| 5 | High | Samba Badlock Vulnerability | Upgrade Samba to version 4.2.11 / 4.3.8 / 4.4.2 or later | Nessus Remediations tab |
+| 6 | High | rlogin service *(name truncated in source)* | Disable rlogin and use SSH instead | General guidance |
+| 7 | n/a | ISC BIND denial of service (3 vulnerabilities) | Upgrade BIND to 9.11.22, 9.16.6 or 9.17.4 or later | Nessus Remediations tab |
+
+### Nessus Remediations tab (reference example)
+
+The scan produced **3 consolidated actions** for the single scanned host:
+
+| Action | Vulnerabilities fixed | Hosts |
+|---|---|---|
+| ISC BIND 9.x DoS: upgrade to BIND 9.11.22, 9.16.6, 9.17.4 or later | 3 | 1 |
+| Samba Badlock: upgrade to Samba 4.2.11 / 4.3.8 / 4.4.2 or later | 1 | 1 |
+| UnrealIRCd Backdoor Detection: re-download, verify checksums, re-install | 0 | 1 |
+
+> The *Vulnerabilities fixed* column is shown as displayed by Nessus. The backdoor action lists 0 there even though it is a Critical finding, so use it as an indicator of consolidated plugin counts rather than risk.
 
 ---
 
