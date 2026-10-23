@@ -5,6 +5,7 @@
 A vulnerability scan is an **automated analysis** that searches for security flaws in a system (server, PC, network, web application).
 
 How it works:
+
 - Probes **ports and services**, checks **software versions**
 - Compares findings against a **known vulnerability database (CVE)**
 - Flags issues: **outdated software**, **weak passwords**, **misconfigured services**
@@ -30,6 +31,7 @@ How it works:
 It offers a very rich database and clear reports for all types of infrastructure.
 
 ### Key Features
+
 - Scans hosts, ports, services, and running software
 - Identifies missing patches, weak configurations, default credentials
 - Severity based on **CVSS v3.0** (Critical / High / Medium / Low / Info)
@@ -38,7 +40,9 @@ It offers a very rich database and clear reports for all types of infrastructure
 - Exportable reports (PDF, HTML, CSV, XML / `.nessus`)
 
 ### Licensing
+
 Nessus is a paid product, but offers:
+
 - **7-day free trial** (Nessus Professional / Expert)
 - **Nessus Essentials** — free for up to 16 IPs (personal / training use)
 
@@ -64,6 +68,7 @@ Register at: [tenable.com/products/nessus](https://www.tenable.com/products/ness
 **Metasploitable2** is an intentionally vulnerable virtual machine created by Rapid7 for testing exploits.
 
 Purpose:
+
 - Serves as a **safe training ground** for learning pentesting and security
 - Contains many **well-known vulnerabilities** (misconfigured services, outdated software)
 - Allows practicing with Nessus, Metasploit, Nmap, etc. **without any legal risk**
@@ -76,7 +81,7 @@ Default credentials: `msfadmin` / `msfadmin`
 
 ## Lab Architecture
 
-```
+```text
                     ┌──────────────────────────┐
                     │  Metasploit (attacker VM) │
                     └────────────┬─────────────┘
