@@ -40,42 +40,59 @@ A Basic Network Scan against Metasploitable2 typically takes **10–15 minutes**
 
 ### Scan Summary
 
-| Field | Example |
+> **Reference example.** The values below come from the example Metasploitable2 scan shown in the course kick-off / how-to material. They are **not** original results produced by this repository's author. Replace them with your own results once you run your own scan.
+
+| Field | Reference example |
 |---|---|
 | **Policy** | Basic Network Scan |
 | **Status** | Completed |
 | **Severity Base** | CVSS v3.0 |
 | **Scanner** | Local Scanner |
-| **Elapsed** | ~12 minutes |
+| **Hosts scanned** | 1 |
+| **Duration** | ~12 minutes (09:59 → 10:11) |
+| **Entries in the Vulnerabilities tab** | 70 |
+| **Entries in the Remediations tab** | 3 |
 
-### Severity Distribution (Donut Chart)
+### Severity Distribution
 
-Nessus reports findings by severity: **Critical · High · Medium · Low · Info**
+Nessus reports findings by severity: **Critical · High · Medium · Low · Info**. Host-level counts in the reference example:
 
-Metasploitable2 is *intentionally* loaded with vulnerabilities, so expect a large number of findings across all severities (dozens of Critical/High findings is normal and expected for this specific training VM).
+| Severity | Count |
+|---|---|
+| Critical | 10 |
+| High | 7 |
+| Medium | 24 |
+| Low | 9 |
+| Info | 133 |
+
+> *Info* items are informational findings (for example service detection), not vulnerabilities. Metasploitable2 is *intentionally* loaded with weaknesses, so a high number of Critical/High findings is expected for this training VM.
 
 ---
 
 ## Job 04 — Identifying Critical Vulnerabilities
 
-> ✏️ Fill in this table with your **actual scan results**. Below is the structure to follow, based on commonly-found Metasploitable2 issues (do not copy values — replace with what your own scan reports).
+> **Reference example** — top entries of the Vulnerabilities tab, sorted by severity. Plugin names that are cut off in the source screenshot are marked *(truncated in source)* and are intentionally not completed here.
 
-| CVSS | Plugin Name | Family | Description (short) |
-|---|---|---|---|
-| `<score>` | `<e.g. UnrealIRCd backdoor>` | Backdoors | `<one-line summary>` |
-| `<score>` | `<e.g. VNC Server — unauthenticated access>` | Gain a shell remotely | `<one-line summary>` |
-| `<score>` | `<e.g. Samba Badlock>` | General | `<one-line summary>` |
-| `<score>` | `<e.g. rlogin service>` | Service detection | `<one-line summary>` |
+| Severity | CVSS | Plugin name (as displayed) | Family | Count |
+|---|---|---|---|---|
+| Critical | 10.0* | UnrealIRCd Backdoor Detection | Backdoors | 1 |
+| Critical | 10.0* | `VNC Serve…` *(truncated in source)* | Gain a shell remotely | 1 |
+| Critical | 9.8 | `SSL Versio…` *(truncated in source)* | Service detection | 2 |
+| Critical | 9.8 | `Bind Shell…` *(truncated in source)* | Backdoors | 1 |
+| Critical (grouped) | n/a | `SSL (…` *(truncated in source)* | Gain a shell remotely | 3 |
+| Mixed (grouped) | n/a | `Apac…` *(truncated in source)* | Web Servers | 4 |
+| High | 7.5 | Samba Badlock Vulnerability | General | 1 |
+| High | 7.5* | `rlogin Serv…` *(truncated in source)* | Service detection | 1 |
 
-### Types of Vulnerabilities Typically Found on Metasploitable2
+The UnrealIRCd entry also shows a VPR of 7.4 and an EPSS of 0.6495, which marks it as the finding with the highest estimated exploitation likelihood in this list.
 
-- **Backdoors** — e.g. a trojaned service binary allowing unauthenticated remote shell access
-- **Weak/default credentials** — services with no authentication or default passwords
-- **Outdated software** — unpatched daemons with known public CVEs
-- **Insecure protocols** — deprecated SSL/TLS versions, unencrypted services (FTP, Telnet)
-- **Misconfigurations** — services exposing more functionality than intended (e.g. NFS world-writable shares)
+### Types of Vulnerabilities Observed
 
-> ✏️ **Describe here, in your own words, the actual vulnerability types your scan uncovered** and why each is dangerous (e.g., "a Critical backdoor vulnerability allows unauthenticated remote code execution, meaning an attacker does not need any credentials to gain a shell").
+- **Backdoors** — the UnrealIRCd and bind-shell findings. A backdoor gives remote access without valid credentials, which is why Nessus rates them at the top of the scale.
+- **Remote shell / weak authentication** — a VNC finding in the *Gain a shell remotely* family, rated 10.0. This points to missing or weak authentication on a remote-access service.
+- **Obsolete cryptographic protocols** — SSL-related findings. Old SSL versions have known weaknesses and should be replaced by TLS 1.2+.
+- **Legacy remote services** — rlogin transmits data without encryption and relies on weak trust mechanisms.
+- **Outdated software with known CVEs** — for example the Samba Badlock issue and the ISC BIND denial-of-service entry listed in the Remediations tab.
 
 ---
 
