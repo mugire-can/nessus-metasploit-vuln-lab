@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-24
+
 ### Changed
 
 - `docs/03` and `docs/05` now include a clearly labeled **reference example** (from the course material) instead of empty placeholders
