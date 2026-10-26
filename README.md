@@ -64,6 +64,11 @@ All components run in an isolated host-only / NAT network segment with no route 
 
 ```text
 .
+├── .github/
+│   ├── ISSUE_TEMPLATE/              # Issue templates (docs improvement, question)
+│   ├── workflows/
+│   │   └── markdown-lint.yml        # CI: markdown linting on push / PR
+│   └── PULL_REQUEST_TEMPLATE.md     # PR checklist incl. data-sanitization checks
 ├── docs/
 │   ├── 01-nessus-overview.md        # What is a vulnerability scan / Nessus basics
 │   ├── 02-lab-setup.md              # VM provisioning, Nessus install & config
@@ -71,11 +76,14 @@ All components run in an isolated host-only / NAT network segment with no route 
 │   ├── 04-exploitation-notes.md     # Vulnerability-to-exploit mapping, methodology (no live payload data)
 │   └── 05-remediation.md            # Fix recommendations, patching/hardening notes
 ├── assets/
-│   └── images/                      # Anonymized diagrams / screenshots
+│   └── images/                      # Anonymized diagrams / screenshots (+ guidelines)
 ├── reports/
 │   └── README.md                    # Sanitized findings summaries only (no raw exports)
-├── LICENSE
-└── .gitignore
+├── .editorconfig                    # Editor defaults (UTF-8, LF, final newline)
+├── .gitignore
+├── .markdownlint.json               # Markdown lint rules used by CI
+├── CHANGELOG.md                     # Version history
+└── LICENSE
 ```
 
 > Raw `.nessus` / XML exports, full PDF scan reports, and any file containing real host IPs, credentials, or scan tokens are intentionally **excluded** from this repository (see `.gitignore`). Only sanitized, anonymized summaries are published.
