@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `docs/03` and `docs/05` updated with the author's own Metasploitable2 scan results, replacing the course reference example
+- `README.md` project structure tree now matches the actual repository layout
+
 ## [1.0.0] - 2026-10-24
 
 ### Changed
