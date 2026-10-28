@@ -40,30 +40,23 @@ A Basic Network Scan against Metasploitable2 typically takes **10–15 minutes**
 
 ### Scan Summary
 
-> **Reference example.** The values below come from the example Metasploitable2 scan shown in the course kick-off / how-to material. They are **not** original results produced by this repository's author. Replace them with your own results once you run your own scan.
-
-| Field | Reference example |
+| Field | Value |
 |---|---|
 | **Policy** | Basic Network Scan |
 | **Status** | Completed |
 | **Severity Base** | CVSS v3.0 |
 | **Scanner** | Local Scanner |
 | **Hosts scanned** | 1 |
-| **Duration** | ~12 minutes (09:59 → 10:11) |
-| **Entries in the Vulnerabilities tab** | 70 |
-| **Entries in the Remediations tab** | 3 |
 
 ### Severity Distribution
-
-Nessus reports findings by severity: **Critical · High · Medium · Low · Info**. Host-level counts in the reference example:
 
 | Severity | Count |
 |---|---|
 | Critical | 10 |
 | High | 7 |
-| Medium | 24 |
-| Low | 9 |
-| Info | 133 |
+| Medium | 27 |
+| Low | 8 |
+| Info | 141 |
 
 > *Info* items are informational findings (for example service detection), not vulnerabilities. Metasploitable2 is *intentionally* loaded with weaknesses, so a high number of Critical/High findings is expected for this training VM.
 
@@ -71,28 +64,29 @@ Nessus reports findings by severity: **Critical · High · Medium · Low · Info
 
 ## Job 04 — Identifying Critical Vulnerabilities
 
-> **Reference example** — top entries of the Vulnerabilities tab, sorted by severity. Plugin names that are cut off in the source screenshot are marked *(truncated in source)* and are intentionally not completed here.
+Top findings from the scan, sorted by CVSS score:
 
-| Severity | CVSS | Plugin name (as displayed) | Family | Count |
-|---|---|---|---|---|
-| Critical | 10.0* | UnrealIRCd Backdoor Detection | Backdoors | 1 |
-| Critical | 10.0* | `VNC Serve…` *(truncated in source)* | Gain a shell remotely | 1 |
-| Critical | 9.8 | `SSL Versio…` *(truncated in source)* | Service detection | 2 |
-| Critical | 9.8 | `Bind Shell…` *(truncated in source)* | Backdoors | 1 |
-| Critical (grouped) | n/a | `SSL (…` *(truncated in source)* | Gain a shell remotely | 3 |
-| Mixed (grouped) | n/a | `Apac…` *(truncated in source)* | Web Servers | 4 |
-| High | 7.5 | Samba Badlock Vulnerability | General | 1 |
-| High | 7.5* | `rlogin Serv…` *(truncated in source)* | Service detection | 1 |
+| CVSS | Plugin Name | Family | Count |
+|---|---|---|---|
+| 10.0 | Canonical Ubuntu Linux SEoL (8.04.x) | General / Service detection | 1 |
+| 10.0* | VNC Server 'password' Password | Gain a shell remotely | 1 |
+| 10.0* | Debian OpenSSH/OpenSSL Package Random Number Generator Weakness (SSL check) | Gain a shell remotely | 2 |
+| 10.0* | Debian OpenSSH/OpenSSL Package Random Number Generator Weakness | Gain a shell remotely | 1 |
+| 10.0 | Apache Tomcat SEoL (<= 5.5.x) | Web Servers | 1 |
+| 9.8 | SSL Version 2 and 3 Protocol Detection | Service detection | 2 |
+| 9.8 | Bind Shell Backdoor Detection | Backdoors | 1 |
+| 7.5 | Samba Badlock Vulnerability | General | 1 |
 
-The UnrealIRCd entry also shows a VPR of 7.4 and an EPSS of 0.6495, which marks it as the finding with the highest estimated exploitation likelihood in this list.
+> `*` indicates a CVSS score flagged by Nessus as modified from the plugin's base score (e.g., adjusted for context).
 
-### Types of Vulnerabilities Observed
+### Types of Vulnerabilities Found
 
-- **Backdoors** — the UnrealIRCd and bind-shell findings. A backdoor gives remote access without valid credentials, which is why Nessus rates them at the top of the scale.
-- **Remote shell / weak authentication** — a VNC finding in the *Gain a shell remotely* family, rated 10.0. This points to missing or weak authentication on a remote-access service.
-- **Obsolete cryptographic protocols** — SSL-related findings. Old SSL versions have known weaknesses and should be replaced by TLS 1.2+.
-- **Legacy remote services** — rlogin transmits data without encryption and relies on weak trust mechanisms.
-- **Outdated software with known CVEs** — for example the Samba Badlock issue and the ISC BIND denial-of-service entry listed in the Remediations tab.
+- **End-of-life software (SEoL)** — both the base OS (Ubuntu 8.04.x) and Apache Tomcat (<= 5.5.x) are past end-of-life, meaning they no longer receive security patches from their vendors at all. This is one of the most severe classes of finding: *any* future vulnerability in these components will never be fixed.
+- **Weak/predictable authentication** — the VNC server accepts a password of `password`, allowing trivial unauthenticated remote desktop access.
+- **Cryptographic weakness (Debian OpenSSL bug)** — the Debian OpenSSH/OpenSSL packages are affected by the well-known 2008 Debian weak-key vulnerability, which drastically reduces the entropy of generated SSH keys, making them predictable/crackable.
+- **Backdoors** — a Bind Shell Backdoor is detected directly listening on the host, meaning an attacker can connect and get a shell with no authentication at all.
+- **Obsolete cryptographic protocols** — SSLv2/SSLv3 are enabled, both of which have known, exploitable weaknesses (e.g., POODLE) and should be disabled in favor of TLS 1.2+.
+- **Outdated software with known CVEs** — the Samba Badlock vulnerability affects the SMB implementation and is fixed in later Samba versions.
 
 ---
 
